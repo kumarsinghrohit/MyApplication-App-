@@ -1,0 +1,33 @@
+<a th:fragment="app-application-card(app)" class="app-card"
+  th:with="
+    destination=${target} ? ${target} : '', 
+    static=${static} ? true : false,
+    reduced=${reduced} ? true : false,
+    icon_background_color=${icon_background_color} ?: 'transparent'
+  "
+  th:classappend="
+    (${reduced} ? 'app-card--reduced ' : '') + 
+    (${static} ? 'app-card--static ' : '')
+  "
+  th:attrappend="href=${static  ? '' : destination}"
+>
+  <link rel="stylesheet" th:href="@{/apps/css/app-application-card.css}" />
+  <div class="app-card__icon-container">
+    <div class="app-card__icon" th:style="${'background-color: ' + icon_background_color}">
+      <img th:src="@{${app.imageUrl}}" class="app-card-icon__image" alt="app icon" />
+    </div>
+  </div>
+  <div class="app-card__content">
+    <div class="app-card__name-container">
+      <div th:if="${#strings.length(app.name) > 30}" class="app-card__name-fader"></div>
+      <div class="app-card__name" th:text="${app.name}">App Name</div>
+    </div>
+    <div class="app-card__extra-info-container">
+        <div class="app-card__extra-info">[[${app.visibility}]] | [[${app.versionLifeCycle}]]</div>
+    </div>
+    <hr class="app-card__hr" />
+    <div class="app-card__description-container">
+      <div class="app-card__description" th:text="${'Created '+#temporals.format(app.createdOn,'dd.MM.yyyy')}">app Short Description Comes here</div>
+    </div>
+  </div>
+</a>

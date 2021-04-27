@@ -1,0 +1,12 @@
+<div th:fragment="no-app-info(appType)">
+  <link rel="stylesheet" th:href="@{/apps/css/no-app-info.css}" />
+
+
+    <div class="no-app-info-container">
+        <div th:replace="common/components.html :: circle-button(${'/apps/create/?appType=' + appType})"></div>
+        <div class="no-app-info-container__no-app-text">
+            <span th:utext="|You have not yet added |+ (${appType} == 'App' ? 'an': 'a') +| ${#strings.toLowerCase(appType)} to your App.<br/>Start creating |+ (${appType} == 'App' ? 'an': 'a') +| ${#strings.toLowerCase(appType)} by clicking on the plus.|"></span>
+        </div>
+    </div>
+  </div>
+</div>

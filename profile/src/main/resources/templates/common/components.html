@@ -1,0 +1,155 @@
+<div
+  th:fragment="application-text-input(name, value, label, disabled)"
+  class="application-text-input d-flex align-items-center"
+  th:classappend="${disabled} ? 'application-text-input--disabled' : ''"
+>
+  <span class="application-text-input__prefix"></span>
+  <input
+    type="text"
+    class="application-text-input__field"
+    th:name="${name}"
+    th:id="${name}"
+    th:value="${value}"
+    th:disabled="${disabled}"
+    autocomplete="off"
+  />
+  <div class="application-text-input__label" th:text="${label}"></div>
+  <div class="application-text-input__fader"></div>
+</div>
+
+<div
+  class="application-text-input d-flex align-items-center"
+  th:classappend="${disabled} ? 'application-text-input--disabled' : ''"
+  th:fragment="application-constrained-text-input(fieldName, limit, value, label, disabled)"
+>
+  <span class="application-text-input__prefix"></span>
+  <input
+    type="text"
+    th:maxlength="${limit}"
+    class="application-text-input__field"
+    th:name="${fieldName}"
+    th:value="${value}"
+    th:id="${fieldName}"
+    th:disabled="${disabled}"
+    autocomplete="off"
+  />
+  <div class="application-text-input__label" th:text="${label}"></div>
+  <div class="application-text-input__limit" th:text="${limit}"></div>
+</div>
+
+<div
+  class="application-text-input application-text-input--full-width d-flex align-items-center"
+  th:classappend="${disabled} ? 'application-text-input--disabled' : ''"
+  th:fragment="application-full-width-text-input(fieldName, limit, value, label, disabled)"
+  th:with="prefix=${prefix} ?: '', prefixClass=${prefixClass} ?: 'application-text-input__prefix'"
+>
+  <span th:class="${prefixClass}" th:text="${prefix}"></span>
+  <input
+    type="text"
+    th:maxlength="${limit > 0 ? limit : 100}"
+    class="application-text-input__field"
+    th:name="${fieldName}"
+    th:id="${fieldName}"
+    th:value="${value}"
+    th:disabled="${disabled}"
+    autocomplete="off"
+  />
+  <div class="application-text-input__label" th:text="${label}"></div>
+  <div th:if="${limit > 0}" class="application-text-input__limit" th:text="${limit}"></div>
+</div>
+
+<div
+  class="application-text-area application-text-area--full-width "
+  th:classappend="${disabled} ? 'application-text-area--disabled' : ''"
+  th:fragment="application-full-width-text-area(fieldName, limit, value, label, disabled)"
+>
+  <textarea
+    type="text"
+    th:maxlength="${limit > 0 ? limit : 100}"
+    class="application-text-area__field"
+    th:name="${fieldName}"
+    th:id="${fieldName}"
+    th:text="${value}"
+    th:disabled="${disabled}"
+  ></textarea>
+  <div class="application-text-area__label" th:text="${label}"></div>
+  <div th:if="${limit > 0}" class="application-text-area__limit" th:text="${limit}"></div>
+</div>
+
+<div
+  class="row application-alert m-0"
+  th:fragment="application-alert(text)"
+  th:with="type=${type} ? ${type}: 'success', showByDefault=${showByDefault} ?: 'false'"
+  th:classappend="${(showByDefault ? 'full-opacity' : '') + (' application-alert--' + type)}"
+>
+  <div class="col-11 d-flex align-items-center p-0 m-0">
+    <div class="alert-text" th:text="${text}"></div>
+  </div>
+  <div class="col-1 p-0 m-0 d-flex align-items-center justify-content-end">
+    <div class="application-alert__close-button">
+      <img th:src="@{/icons/close-circle.svg}" alt="" />
+    </div>
+  </div>
+</div>
+
+<div
+  th:fragment="profile-photo-placeholder"
+  class="profile-photo-placeholder d-flex justify-content-center align-items-center"
+  th:with="
+    initial_letter=${initial_letter} ?: '', 
+    background_color=${background_color} ?: '#1CA29A'
+  "
+  th:style="${'background-color: ' + background_color}"
+>
+  <div th:text="${initial_letter}"></div>
+  <div class="profile-photo-placeholder__button d-flex justify-content-center align-items-center ">
+    <img th:src="@{/icons/picture.svg}" alt="Change the picture" />
+  </div>
+</div>
+
+<div
+  class="application-well"
+  th:fragment="application-well"
+  th:with="title=${title}, content=${content}, limit=${limit} ? ${limit} : ''"
+>
+  <div class="application-well__label" th:text="${title}"></div>
+  <th:block th:replace="${content}"></th:block>
+  <div class="application-well__limit" th:text="${limit}"></div>
+</div>
+
+<div
+  th:fragment="picture-placeholder"
+  class="picture-placeholder"
+  th:with="image_src = ${image_src} ? ${image_src} : ''"
+  th:classappend="${#strings.isEmpty(image_src) ? '' : 'picture-placeholder--picture-selected' }"
+>
+  <img class="picture-placeholder__picture" th:src="${image_src}" alt=""/>
+  <input type="file" style="display: none;" />
+  <label class="picture-placeholder__bottom-strip-container d-flex justify-content-center align-items-center">
+    <div class="picture-placeholder__bottom-strip"></div>
+    <img th:src="@{/icons/picture.svg}" alt="Change the picture" />
+  </label>
+</div>
+
+<div th:fragment="application-dropdown(name, title, options, value)" th:data-value="${value}" class="application-dropdown">
+  <div class="application-dropdown__label" th:text="${title}"></div>
+  <div class="application-dropdown__arrow"><img th:src="@{/icons/arrow-dropdown.svg}" height="16" width="32" alt="" /></div>
+  <div class="application-dropdown__options-list"></div>
+
+  <select th:name="${name}" th:id="${name}">
+    <th:block th:replace="${options}" />
+  </select>
+</div>
+
+<a th:fragment="diamond-button(text, target, size)" class="diamond-button d-flex flex-column justify-content-center align-items-center" th:href="${target}">
+  <div class="diamond-button__diamond d-flex justify-content-center align-items-center" th:classappend="${size == 'large' ? 'diamond-button__diamond--large' : ''}">
+    <div class="diamond-button__icon"></div>
+  </div>
+  <div th:if="${not #strings.isEmpty(text)}" class="diamond-button__link-text" th:text="${text}"></div>
+</a>
+
+<a th:fragment="circle-button(target)" class="circle-button" th:href="@{${target}}">
+  <div class="circle-button__circle d-flex justify-content-center align-items-center">
+    <div class="circle-button__icon-text">+</div>
+  </div>
+</a>

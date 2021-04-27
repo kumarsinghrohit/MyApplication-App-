@@ -1,0 +1,81 @@
+<div
+  th:replace="apps/fragments/add-app.html::add-app('Update Existing App Version', ~{::div.update-existing-version}, ~{::div.alert-container}, ${appType})"
+>
+  <div class="alert-container">
+    <div th:replace="common/components.html :: application-alert(text = '', showByDefault = 'false')"></div>
+  </div>
+
+  <div class="update-existing-version">
+    <link rel="stylesheet" th:href="@{/apps/css/update-existing-version.css}" />
+    <form name="updateExistingVersion" id="updateExistingVersion">
+    <div class="d-flex flex-row justify-content-between">
+      <div class="profile-photo-placeholder d-flex justify-content-center align-items-center"  style="background-color: #f5f5f5;">
+        <img id="displayProductIcon" alt="" th:src="${editableAppVersionDto.imageUrl}" class="profile-photo__upload-image" />
+      </div>
+      <div class="d-flex justify-content-end align-items-start">
+        <button class="application-button" id="delete-button" disabled>Delete version</button>
+      </div>
+    </div>
+
+    <div class="update-existing-version__timestamp">
+      Created on <span th:text="${#temporals.format(editableAppVersionDto.createdOn, 'dd.MM.YYYY')}"></span>
+    </div>
+    <div class="update-existing-version__name-price-row d-flex justify-content-between">
+      <div
+        th:replace="common/components.html :: application-constrained-text-input('name', 35, ${editableAppVersionDto.name}, 'Name', true)"
+      ></div>
+      <div class="update-existing-version__price-container">
+        <div
+          th:replace="common/components.html :: application-full-width-text-input(fieldName='price', limit=0, value=${editableAppVersionDto.price}, label='Price', disabled=false, prefix='€')"
+        ></div>
+      </div>
+    </div>
+    <div
+      th:replace="common/components.html :: application-full-width-text-input('shortDescription', 80, ${editableAppVersionDto.shortDescription}, 'Short description', false)"
+    ></div>
+    <div
+      th:replace="common/components.html :: application-full-width-text-area('longDescription', 4000, ${editableAppVersionDto.longDescription}, 'Long description', false)"
+    ></div>
+
+    <div th:replace="common/components.html :: application-well(title='Gallery', limit='max. 5', content=~{::div.update-existing-version__gallery})">
+      <div class="update-existing-version__gallery d-flex justify-content-start" >
+         <div th:each="thumbnailUrl: ${editableAppVersionDto.galleryImageUrls}">
+            <div th:replace="common/components.html :: picture-placeholder(image_src=${thumbnailUrl})"></div>
+          </div>
+      </div>
+    </div>
+
+    <div
+      th:replace="common/components.html :: application-full-width-text-area('whatsNewInVersion', 4000, ${editableAppVersionDto.whatsNewInVersion}, 'What\'s new in this version', false)"
+    ></div>
+
+    <div class="update-existing-version__version-upload-row d-flex">
+      <div class="update-existing-version__version-col">
+        Version
+        <div
+          th:replace="common/components.html :: application-full-width-text-input('version', 16, ${editableAppVersionDto.versionNumber}, '', false)"
+        ></div>
+      </div>
+      <div class="update-existing-version__upload-col d-flex flex-column">
+        X86_64 binary supported
+        <div class="app-binary d-flex flex-column">
+            <input type="file" name="binary" id="binary" class="d-none"/>
+            <label class="app-binary__file-name"></label>
+            <label th:text="'Upload App'" id="app-binary__label" class="application-button d-flex align-items-center justify-content-center" for="binary"></label>
+        </div>
+      </div>
+    </div>
+
+    <button class="application-button" disabled id="update-version-button">Update version</button>
+    <input type="hidden" name="developerId" id="developerId" th:value="${user.email}"/>
+    <input type="hidden" id="name" name="name" th:value="${editableAppVersionDto.name}" />
+    </form>
+    <script th:src="@{/apps/js/update-existing-version.js}"></script>
+    <script th:src="@{/common/js/application-profile-photo.js}"></script>
+    <script th:src="@{/common/js/upload-gallery-images.js}"></script>
+    <script>
+      var appId = "[[${editableAppVersionDto.appId}]]";
+      var versionId = "[[${editableAppVersionDto.versionId}]]";
+    </script>
+  </div>
+</div>

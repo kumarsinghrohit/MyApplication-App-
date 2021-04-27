@@ -1,0 +1,116 @@
+.update-existing-version {
+  flex: 1;
+}
+
+#delete-button {
+  width: 10.6875rem;
+}
+
+.update-existing-version__timestamp {
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+  color: #3b3b3b;
+  line-height: 1.25rem;
+  letter-spacing: 0.19px;
+}
+
+.update-existing-version__price-container {
+  width: 7.625rem;
+}
+
+.update-existing-version__version-upload-row {
+  margin-top: 1.25rem;
+  font-size: 1rem;
+  letter-spacing: 0.26px;
+  line-height: 1.25rem;
+}
+
+.update-existing-version__version-col {
+  width: 11.25rem;
+}
+
+.update-existing-version__version-col .application-text-input {
+  margin-top: 2.3125rem;
+}
+
+.update-existing-version__upload-col {
+  margin-left: 10.3125rem;
+}
+
+.app-binary {
+    margin-top: 2.3125rem;
+}
+
+#app-binary__label {
+  background-color: white;
+  color: #3b3b3b;
+  border: 1px #3b3b3b solid;
+  width: 9.625rem;
+}
+
+#app-binary__label:hover {
+  color: white;
+  background: #3b3b3b;
+  cursor: pointer;
+}
+
+.app-binary__file-name {
+    width: 25rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: #1ca29a;
+    display: none;
+    margin-bottom: 0.125rem;
+}
+
+#upload-button {
+  margin-top: 2.3125rem;
+  background-color: white;
+  color: #3b3b3b;
+  border: 1px #3b3b3b solid;
+  width: 9.625rem;
+}
+
+#upload-button:hover {
+  color: white;
+  background: #3b3b3b;
+}
+
+#update-version-button {
+  width: 9.3125rem;
+  margin-top: 1.25rem;
+}
+
+@media (max-width: 67.625rem) {
+  .update-existing-version__name-price-row {
+    flex-direction: column;
+  }
+
+  .update-existing-version__price-container {
+    width: 100%;
+  }
+
+  .application-text-input {
+    width: 100%;
+  }
+
+  .update-existing-version__version-upload-row {
+    flex-direction: column;
+  }
+
+  .update-existing-version__upload-col {
+    margin-top: 1.25rem;
+    margin-left: unset;
+  }
+}
+
+/* Page-specific overrides */
+.picture-placeholder {
+  margin-right: 1.875rem;
+}
+
+.application-text-area {
+  height: 11rem !important;
+}

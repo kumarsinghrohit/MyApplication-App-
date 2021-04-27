@@ -1,0 +1,5 @@
+<link rel="stylesheet" th:href="@{${FrontendUrl} + '/apps/css/app-price-pill.css'}" />
+<button
+  class="button button--primary"
+  th:text="${appPrice} > 0 ? '&euro; ' +${#numbers.formatDecimal(appPrice, 0, 0)} : 'Free'"
+></button>

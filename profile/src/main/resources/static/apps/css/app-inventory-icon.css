@@ -1,0 +1,28 @@
+.app-application-icon__anchor {
+  text-decoration: none !important;
+  color: black !important;
+}
+
+.app-application-icon {
+  background-image: url("/icons/app-application.svg");
+  background-size: cover;
+  width: 1.875rem;
+  height: 1.875rem;
+  cursor: pointer;
+}
+
+.app-application-icon--highlighted {
+  background-image: url("/icons/highlighted/app-application.svg");
+}
+
+.app-application-icon__text {
+  cursor: pointer;
+  margin-top: 0.25rem;
+  letter-spacing: 0;
+  opacity: 1;
+  font-size: 0.75rem;
+}
+
+.app-application-icon__text--highlighted {
+  color: #1ca29a;
+}

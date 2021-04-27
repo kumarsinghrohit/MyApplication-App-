@@ -1,0 +1,60 @@
+spring:
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: -1
+      max-request-size: -1
+  autoconfigure:
+    exclude:
+      - org.springframework.cloud.aws.autoconfigure.context.ContextStackAutoConfiguration
+  profiles:
+    active:
+      - dev
+  application:
+    name: manager
+  main:
+    allow-bean-definition-overriding: true
+server:
+  port: 8201
+security:
+  disable-csrf: true
+
+############## elastic search configruation ####################
+elasticsearch:
+  host: localhost
+  port: 9200
+  scheme: http
+
+---
+spring:
+  profiles: default
+cloud:
+  aws:
+    region:
+      static: <region> E.g  ap-south-1, us-east-1
+    credentials:
+      access-key: <ACCESS KEY>
+      secret-key: <SECRET KEY>
+    s3:
+      bucket: <BUCKET NAME>
+    endpoint:
+      url: https://s3.${cloud.aws.region.static}.amazonaws.com/${cloud.aws.s3.bucket}
+
+---
+spring:
+  profiles: dev
+localstack:
+  enabled: true
+  s3:
+    enabled: true
+cloud:
+  aws:
+    region:
+      static: us-east-1
+    credentials:
+      access-key: dummy
+      secret-key: dummy
+    s3:
+      bucket: test-bucket
+    endpoint:
+      url: http://localstack:4572/${cloud.aws.s3.bucket}

@@ -1,0 +1,8 @@
+<link
+  rel="stylesheet"
+  th:href="@{${FrontendUrl + '/organisations/css/organisation-components.css'}}"
+/>
+<div class="product-card__organisation-container">
+  <div th:if="${#strings.length(organisationName) > 30}" class="product-card__organisation-fader"></div>
+  <div class="product-card__organisation" th:text="${organisationName}">Organisation Name</div>
+</div>

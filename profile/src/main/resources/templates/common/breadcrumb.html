@@ -1,0 +1,13 @@
+<div class="app-breadcrumb" th:fragment="app-breadcrumb(searchInput, products)">
+  <div th:if="${not #strings.isEmpty(searchInput)}">
+    <strong>'<span th:text="${searchInput}"></span>'</strong>
+    <span class="app-breadcrumb__search-result-count">
+      (<span th:text="${#lists.size(products)}"></span> search
+      <span th:text="${#lists.size(products) > 1 ? 'results' : 'result'}"></span>)
+    </span>
+  </div>
+  <div th:if="${#strings.isEmpty(searchInput)}">
+    All Apps
+    <img th:src="@{/icons/arrow-dropdown.svg}" class="app-breadcrumb__right-arrow-icon" alt="All apps list" />
+  </div>
+</div>

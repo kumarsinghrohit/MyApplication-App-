@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<div th:fragment="add-app(page_title, content_as_html, alert_html, menuitemid)">
+  <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+      <title>App - Application®</title>
+      <link rel="shortcut icon" th:href="@{/favicon.ico}" />
+      <link rel="stylesheet" th:href="@{/apps/css/my-account.css}" />
+      <link rel="stylesheet" th:href="@{/common/css/application-store.css}" />
+      <!--#include virtual="/commons/inc/resources" -->
+    </head>
+
+    <body>
+      <div class="overlay"></div>
+      <!--# include virtual="/commons/inc/header" -->
+
+      <th:block th:replace="${alert_html}" />
+      <div class="application-store-page position-relative">
+        <!-- SIDEBAR STARTS -->
+        <div class="my-account__sidebar">
+          <div
+            class="my-account__title my-account__title--sidebar my-account__title--highlighted d-inline-flex justify-content-start align-items-center"
+          >
+            <div class="hamburger-button d-inline-block d-lg-none"></div>
+            App
+          </div>
+
+          <a
+            class="account-page-button d-flex align-items-center"
+            th:href="@{/}"
+            th:classappend="${menuitemid == 'App'? 'account-page-button--current' : '' }"
+          >
+            Apps
+          </a>
+          <a
+            class="account-page-button d-flex align-items-center"
+            th:href="@{/?type=Library}"
+            th:classappend="${menuitemid == 'Library'? 'account-page-button--current' : '' }"
+          >
+            Libraries
+          </a>
+        </div>
+        <!-- SIDEBAR ENDS -->
+
+        <div class="my-account__title my-account__title--root d-inline-flex justify-content-start align-items-center">
+          <div class="hamburger-button d-inline-block d-lg-none"></div>
+          App
+        </div>
+        <div class="my-account__main-container d-flex justify-content-start align-items-stretch flex-row">
+          <div class="my-account__menu-column">
+            <a
+              class="account-page-button d-flex align-items-center"
+              th:href="@{/}"
+              th:classappend="${menuitemid == 'App'? 'account-page-button--current' : '' }"
+            >
+              Apps
+            </a>
+            <a
+              class="account-page-button d-flex align-items-center"
+              th:href="@{/?type=Library}"
+              th:classappend="${menuitemid == 'Library'? 'account-page-button--current' : '' }"
+            >
+              Libraries
+            </a>
+          </div>
+
+          <div class="my-account__content-column">
+            <th:block th:replace="${content_as_html}" />
+          </div>
+        </div>
+      </div>
+
+      <!--# include virtual="/commons/inc/footer" -->
+    </body>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+    <script th:src="@{/apps/js/my-account.js}"></script>
+  </html>
+</div>

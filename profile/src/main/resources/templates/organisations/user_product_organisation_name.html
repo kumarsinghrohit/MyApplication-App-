@@ -1,0 +1,8 @@
+<link rel="stylesheet" th:href="@{/organisations/css/organisation-components.css}" />
+<div
+  class="secondary-text user-action-dropdown__organisation-name"
+  th:classappend="${not #strings.isEmpty(organisationName) ? '' : 'user-action-dropdown__organisation-name--clickable'}"
+  th:text="${organisationName}?: 'Add an organisation'"
+>
+  Organisation
+</div>

@@ -1,0 +1,23 @@
+.developed-apps-libs__content{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15.625rem, 1fr));
+    gap: 0.625rem;
+}
+
+.developed-apps-libs {
+  width: 100%;
+  min-height: 36.8125rem;
+}
+
+.developed-apps-libs__add-app-card {
+  height: 8.75rem;
+  width: 15.625rem;
+  margin: 1.875rem auto;
+
+}
+
+.developed-apps-libs__content a,
+.developed-apps-libs__content a:hover {
+  transition: all 0.1s linear;
+  text-decoration: none;
+}

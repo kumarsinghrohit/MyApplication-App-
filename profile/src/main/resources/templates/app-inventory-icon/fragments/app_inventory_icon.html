@@ -1,0 +1,12 @@
+<div th:fragment="app-application-icon(destination)">
+  <link rel="stylesheet" th:href="@{${destination} + '/apps/css/app-application-icon.css'}" /> 
+  <!-- App Application icon --> 
+      <a th:href="@{${destination}}" class="app-application-icon__anchor">  
+	    <div class="d-flex flex-column justify-content-center align-items-center mr-1">
+	      <div class="app-application-icon"></div>
+	      <div class="app-application-icon__text">App Application</div>
+	    </div>
+      </a>
+   <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+   <script type="text/javascript" th:src="@{${destination} + '/apps/js/app-application-icon.js'}"></script>
+</div>

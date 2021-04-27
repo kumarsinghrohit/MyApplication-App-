@@ -1,0 +1,53 @@
+<a
+  th:fragment="app-catalog-card(app)"
+  class="app-card"
+  th:with="
+    destination=${target} ? ${target} : '/products/' + ${app.id}, 
+    static=${static} ? true : false,
+    reduced=${reduced} ? true : false,
+    icon_background_color=${icon_background_color} ?: 'transparent'
+  "
+  th:classappend="
+    (${reduced} ? 'app-card--reduced ' : '') + 
+    (${static} ? 'app-card--static ' : '')
+  "
+  th:attrappend="href=${static  ? '' : destination}"
+>
+  <link rel="stylesheet" th:href="@{${appApplicationFrontendUrl + '/apps/css/app-catalog-card.css'}}" />
+  <div class="app-card__icon-container">
+    <div
+      class="pill"
+      th:if="${reduced} == false"
+      th:text="${version.price} > 0 ? '&euro; ' +${#numbers.formatDecimal(version.price, 0, 0)} : 'Free'"
+    >
+      &euro; 38
+    </div>
+    <div class="app-card__icon" th:style="${'background-color: ' + icon_background_color}">
+      <img th:src="@{${app.imageUrl}}" class="app-card-icon__image" alt="app icon" />
+    </div>
+  </div>
+  <div class="app-card__content">
+    <div class="app-card__name-container">
+      <div th:if="${#strings.length(app.name) > 30}" class="app-card__name-fader"></div>
+
+      <div class="app-card__name" th:text="${app.name}">
+        App Name
+      </div>
+    </div>
+    <!--# include virtual="[[${'/app-application/inc/app-organisation-name/' + app.Id}]]" -->
+    <div th:if="${reduced == false}" class="app-card__review">
+      <img th:src="@{/icons/star.svg}" class="app-card__star" alt="" />
+      <img th:src="@{/icons/star.svg}" class="app-card__star" alt="" />
+      <img th:src="@{/icons/star.svg}" class="app-card__star" alt="" />
+      <img th:src="@{/icons/star.svg}" class="app-card__star" alt="" />
+      <img th:src="@{/icons/star.svg}" class="app-card__star" alt="" />(200 Reviews)
+    </div>
+    <hr class="app-card__hr" />
+    <div class="app-card__description-container">
+      <div class="app-card__description" th:text="${version.shortDescription}">
+        App Short Description Comes here
+      </div>
+      <div th:if="${#strings.length(version.shortDescription) > 58}" class="app-card__description__fader"></div>
+    </div>
+  </div>
+</a>

@@ -1,0 +1,25 @@
+.no-app-info-container {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 5.8125rem;
+  padding-top: 3.4375rem;
+}
+
+.no-app-info-container__no-app-text {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  font-size: 0.875rem;
+  font-weight: bold;
+  line-height: 1.5625rem;
+  letter-spacing: 0.22px;
+  color: #3b3b3b;
+  margin-left: 1.25rem;
+}
+
+@media (max-width: 67.625rem) {
+  .no-app-info-container {
+    padding-left: unset;
+    flex-wrap: nowrap;
+  }
+}

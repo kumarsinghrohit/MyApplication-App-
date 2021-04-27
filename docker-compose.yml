@@ -1,0 +1,125 @@
+version: '3'
+
+services:
+  nginx.application.service:
+#    build:
+#      context: openresty/
+    image: nginx:latest
+    environment:
+      - APPLICATION_ENVIRONMENT=dev
+      - NGINX_HOST=nginx.application.service
+      - NGINX_PORT=80
+      - AUTH_KEYCLOAK_URL=http://keycloak.application.service:8180
+    ports:
+      - 80:80
+      
+  ui-components:    
+    image: ui-components:latest
+    environment:
+      - server.port=8888
+    ports:
+      - 8888:8888
+      
+  redis.application.service:
+    image: redis
+    ports:
+      - 6379:6379
+ 
+  manager.service:
+    build:
+      context: manager/
+    volumes:
+      - ~/.aws/credentials:/root/.aws/credentials
+    environment:
+      - elasticsearch.host=elasticsearch
+      - keycloak.auth-server-url=http://keycloak.application.service:8180/auth
+      - SPRING_PROFILES_ACTIVE=dev
+      - cloud.aws.region.static=us-east-1
+      - cloud.aws.s3.bucket=test-bucket
+      - cloud.aws.credentials.access-key=dummy
+      - cloud.aws.credentials.secret-key=dummy
+      - server.port=8201
+      - spring.redis.host=redis.application.service
+    depends_on:
+      - axonserver
+  
+  profile.service:
+    build:
+      context: profile/
+    environment:
+      - elasticsearch.host=elasticsearch
+      - keycloak.auth-server-url=http://keycloak.application.service:8180/auth
+      - SPRING_PROFILES_ACTIVE=dev
+      - cloud.aws.region.static=us-east-1
+      - cloud.aws.s3.bucket=test-bucket
+      - cloud.aws.credentials.access-key=dummy
+      - cloud.aws.credentials.secret-key=dummy
+      - server.port=8202
+      - spring.redis.host=redis.application.service
+    depends_on:
+      - axonserver
+      
+  axonserver:
+    image: axoniq/axonserver:4.2.4-jdk11
+    environment:
+      - AXONSERVER_HOSTNAME=axonserver
+    ports:
+      - 8024:8024
+      
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.4.0
+    environment:
+      - discovery.type=single-node
+    ports:
+      - 9200:9200
+      - 9300:9300
+      
+  localstack:
+    image: localstack/localstack
+    ports:
+      - "4567-4599:4567-4599"
+      - "8280:8280"
+    environment:
+      - SERVICES=s3
+      - DEBUG=1
+      - DATA_DIR=/tmp/localstack
+      - PORT_WEB_UI=8280
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    volumes:
+      - "/tmp/localstack:/tmp/localstack"
+  
+  account.service:
+    image: account:latest
+    environment:
+      - server.port=8101
+      - auth.logout-url=http://auth.application.local/auth/realms/myApplication/protocol/openid-connect/logout
+      - auth.logout-redirect-url=http://apps.application.local
+      - ldap.ldap-host=ldap://ldap.application.service:10389
+      - keycloak.auth-server-url=http://keycloak.application.service:8180/auth
+      - spring.session.store-type=NONE
+      - spring.redis.host=redis.application.service
+      - application.logout-redirect-url= http://apps.application.local
+    ports:
+      - 8101:8101
+    depends_on:
+      - ldap.application.service
+  
+  keycloak.application.service:
+    image: jboss/keycloak:latest
+    ports:
+      - 8180:8180
+    command:
+     - "-b 0.0.0.0 -Djboss.http.port=8180 -Dkeycloak.frontendUrl=http://auth.application.local/auth -Dkeycloak.forceBackendUrlToFrontendUrl=false"
+    depends_on:
+      - ldap.application.service    
+      
+  ldap.application.service:
+    image: openfrontier/apacheds
+    ports:
+      - 10389:10389
+
+networks:
+  default:
+    external:
+      name: application
+

@@ -1,0 +1,82 @@
+<div th:replace="apps/fragments/add-app.html::add-app('Update Developed App/Lib', ~{::div.edit-app-lib}, ~{::div.alert-container}, ${app.appType})">
+	<div class="alert-container">
+		<div
+			th:replace="common/components.html :: application-alert(text = '', showByDefault = 'false')"></div>
+	</div>
+	<div class="edit-app-lib d-flex flex-column justify-content-between">
+		<div>
+			<link rel="stylesheet" th:href="@{/apps/css/edit-app-lib.css}" />
+			<form id="editDevelopedAppLibForm" name="editDevelopedAppLibForm">
+				<div class="edit-app-lib__basic-details-column row p-0 m-0">
+					<input type="hidden" id="id" name="id" th:value="${app.id}" /> <input
+						type="hidden" name="appType" id="appType"
+						th:value="${app.appType}" /> <input type="hidden"
+						name="developerId" id="developerId" th:value="${app.developerId}" />
+					<div
+						class="edit-app-lib__metadata-column d-flex flex-row justify-content-start">
+						<div
+							class="edit-app-lib-profile-photo-container d-flex flex-row p-0 m-0 justify-content-start align-items-start">
+							<div
+								class="profile-photo-placeholder profile-photo-placeholder--new d-flex justify-content-center align-items-center">
+								<img id="displayAppLibIcon" alt="" th:src="${app.image}"
+									class="profile-photo__upload-image" /> <input type="text"
+									id="image" hidden="hidden" /> <input type="file" name="image"
+									id="file" class="d-none" /> <label
+									class="profile-photo-placeholder__button d-flex justify-content-center align-items-center"
+									for="file"> <img th:src="@{/icons/picture.svg}"
+									alt="Change the picture" />
+								</label>
+							</div>
+						</div>
+						<div>
+							<button id="delete-button" class="application-button">Delete	app</button>
+						</div>
+					</div>
+					<div class="edit-app-lib__metadata-text">
+						Created on <span th:text="${#temporals.format(app.createdOn,'dd.MM.yyyy')}"></span>
+						<br />
+					</div>
+					<div class="edit-app-lib__name-column">
+						<div
+							th:replace="common/components.html :: application-constrained-text-input('name', 35, ${app.name}, 'Name', 'false')"></div>
+					</div>
+					<button id="update-button" class="application-button">Update app</button>
+				</div>
+				<script th:src="@{/common/js/application-text-input.js}"></script>
+				<script th:src="@{/common/js/application-profile-photo.js}"></script>
+				<script th:src="@{/apps/js/edit-app-lib.js}"></script>
+				<script th:src="@{/apps/js/delete-app-lib.js}"></script>
+			</form>
+
+			<div class="edit-app-lib__version-details-column col p-0 m-0">
+				<div class="edit-app-lib__available-version-title">Available versions</div>
+				<div class="edit-app-lib__add-version-title">Click on a row to update your version.</div>
+				<table id="table-app-version" class="table">
+					<thead id="table-heading-app-version">
+						<tr>
+							<th scope="col">Version</th>
+							<th scope="col">Life Cycle</th>
+							<th scope="col">Visibility</th>
+							<th scope="col">Created on</th>
+						</tr>
+					</thead>
+
+					<tbody id="table-body-app-version">
+						<tr th:each="appVersion: ${appVersions}"
+							th:onclick="location.href=[[${'/apps/' + app.id + '/versions/' + appVersion.id}]]">
+							<td th:text="${appVersion.versionNumber}"></td>
+							<td th:text="${appVersion.versionLifeCycle}"></td>
+							<td th:text="${appVersion.visibility}"></td>
+							<td
+								th:text="${#temporals.format(appVersion.createdOn,'dd.MM.yyyy')}"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<a th:href="${'/apps/' + app.id + '/versions/add'}">
+			<button id="add-new-version-button" class="application-button">Add
+				new version</button>
+		</a>
+	</div>
+</div>

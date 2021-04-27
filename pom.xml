@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.2.6.RELEASE</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.application</groupId>
+	<artifactId>my-application</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>my-application</name>
+	<description>My Application</description>
+	<packaging>pom</packaging>
+
+	<properties>
+		<java.version>1.11</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<axon.version>4.3</axon.version>
+		<spring-cloud.version>Hoxton.SR4</spring-cloud.version>
+		<localstack.version>1.1.1</localstack.version>
+		<elasticsearch.version>7.6.2</elasticsearch.version>
+		<tika.version>LATEST</tika.version>
+		<equalsverifier.version>3.1.13</equalsverifier.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.application</groupId>
+				<artifactId>axon-spring-boot-starter</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>com.application</groupId>
+				<artifactId>auth-spring-boot-starter</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.axonframework</groupId>
+				<artifactId>axon-test</artifactId>
+				<version>${axon.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>io.smartup.localstack</groupId>
+				<artifactId>localstack-spring-boot-starter</artifactId>
+				<version>${localstack.version}</version>
+			</dependency>
+			<!-- ElasticSearch Dependency -->
+			<dependency>
+				<groupId>org.elasticsearch.client</groupId>
+				<artifactId>elasticsearch-rest-high-level-client</artifactId>
+				<version>${elasticsearch.version}</version>
+			</dependency>
+			<!-- Apache Tika Dependency -->
+			<dependency>
+				<groupId>org.apache.tika</groupId>
+				<artifactId>tika-core</artifactId>
+				<version>${tika.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>nl.jqno.equalsverifier</groupId>
+				<artifactId>equalsverifier</artifactId>
+				<version>${equalsverifier.version}</version>
+				<scope>test</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<modules>
+		<module>core</module>
+		<module>manager</module>
+		<module>profile</module>
+	</modules>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<release>11</release>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

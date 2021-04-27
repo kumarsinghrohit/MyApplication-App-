@@ -1,0 +1,26 @@
+<div
+  th:replace="apps/fragments/add-app.html::add-app('Developed Apps', ~{::div.developed-apps-libs}, ~{::div.alert-container}, 'App')"
+>
+  <div class="alert-container">
+    <div th:replace="common/components.html :: application-alert(text = '', showByDefault = 'false')"></div>
+  </div>
+
+  <div class="developed-apps-libs">
+    <link rel="stylesheet" th:href="@{/apps/css/developed-apps-libs.css}" />
+
+    <div class="developed-apps-libs__content" th:if="${not #lists.isEmpty(developedApps)}">
+      <div class="developed-apps-libs__add-app-column d-flex justify-content-center align-items-center">
+        <div class="developed-apps-libs__add-app-card d-flex justify-content-center align-items-center">
+          <div th:replace="common/components.html :: circle-button('/apps/create/?appType=App')"></div>
+        </div>
+      </div>
+      <div class="justify-content-center d-flex" th:each="developedApp: ${developedApps}">
+        <div th:replace="apps/fragments/app-application-card.html :: app-application-card(app=${developedApp}, target='/apps/edit/'+${developedApp.id})"></div>
+      </div>
+    </div>
+
+    <div th:if="${#lists.isEmpty(developedApps)}">
+      <div th:replace="apps/fragments/no-app-info.html :: no-app-info('App')"></div>
+    </div>
+  </div>
+</div>

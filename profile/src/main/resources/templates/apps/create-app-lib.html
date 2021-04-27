@@ -1,0 +1,67 @@
+<div
+    th:replace="apps/fragments/add-app.html::add-app('Developed Apps', ~{::div.create-app-lib}, ~{::div.alert-container}, ${appType})">
+    <div class="alert-container">
+        <div th:replace="common/components.html :: application-alert(text = '', showByDefault = 'false')"></div>
+    </div>
+
+    <div class="create-app-lib">
+        <link rel="stylesheet" th:href="@{/apps/css/create-app-lib.css}" />
+        <form name="createAppLib" id="createAppLib">
+        <div class="profile-photo-placeholder profile-photo-placeholder--new d-flex justify-content-center align-items-center">
+            <img id="displayAppLibIcon" alt=""
+                class="profile-photo__upload-image"
+                style="display: none;" />
+            <input type="text" id="imageUrl" hidden="hidden"/> 
+            <input type="file" name="file" id="file" class="d-none"/>
+            <label class="profile-photo-placeholder__button d-flex justify-content-center align-items-center" for="file">
+                <img th:src="@{/icons/picture.svg}" alt="Change the picture" />
+            </label>
+        </div>
+        <div
+            class="create-app-lib__name-price-row d-flex justify-content-between">
+            <div
+                th:replace="common/components.html :: application-constrained-text-input('name', 35, '', 'Name', false)"></div>
+            <div class="create-app-lib__price-container">
+                <div
+                    th:replace="common/components.html :: application-full-width-text-input(fieldName='price', limit=0, value='', label='Price', disabled=false, prefixClass='application-text-input__prefix--price')"></div>
+            </div>
+        </div>
+        <div
+            th:replace="common/components.html :: application-full-width-text-input('shortDescription', 80, '', 'Short Description', false)"></div>
+        <div
+            th:replace="common/components.html :: application-full-width-text-area('longDescription', 4000, '', 'Long Description', false)"></div>
+
+        <div
+            th:replace="common/components.html :: application-well(title='Gallery', limit='max. 5', content=~{::div.create-app-lib__gallery})">
+            <div class="create-app-lib__gallery"></div>
+        </div>
+
+        <div class="create-app-lib__version-upload-row d-flex">
+            <div class="create-app-lib__version-col">
+                Version
+                <div th:replace="common/components.html :: application-full-width-text-input('version', 16, '', '', false)"></div>
+            </div>
+            <div class="create-app-lib__upload-col d-flex flex-column">
+                X86_64 binary supported
+                <div class="app-binary d-flex flex-column">
+                    <input type="file" name="binary" id="binary" class="d-none"/>
+                    <label class="app-binary__file-name"></label>
+                    <label th:text="'Upload App'" id="app-binary__label" class="application-button d-flex align-items-center justify-content-center" for="binary"></label>
+                </div>
+            </div>
+        </div>
+
+        <button class="application-button" id="create-app-lib-button">Create App</button>
+        <input type="hidden" name="appType" id="appType" th:value="${appType}"/>
+        <input type="hidden" name="developerId" id="developerId" th:value="${user.email}"/>
+        </form>
+        <script th:src="@{/common/js/upload-gallery-images.js}"></script>
+        <script th:src="@{/common/js/application-profile-photo.js}"></script>
+        <script type="text/javascript" th:src="@{/apps/js/create-app-lib.js}"></script>
+    </div>
+
+    <div th:if="${#lists.isEmpty(developedApps)}">
+        <div
+            th:replace="apps/fragments/no-app-info.html :: no-app-info('App')"></div>
+    </div>
+</div>

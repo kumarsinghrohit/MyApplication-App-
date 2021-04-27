@@ -1,0 +1,97 @@
+.create-app-lib {
+  flex: 1;
+}
+
+.create-app-lib__name-price-row {
+  margin-top: 4.5625rem;
+}
+
+.create-app-lib__price-container {
+  width: 7.625rem;
+}
+
+.create-app-lib__version-upload-row {
+  margin-top: 1.25rem;
+  font-size: 1rem;
+  letter-spacing: 0.26px;
+  line-height: 1.25rem;
+}
+
+.create-app-lib__version-col {
+  width: 11.25rem;
+}
+
+.create-app-lib__version-col .application-text-input {
+  margin-top: 2.3125rem;
+}
+
+.create-app-lib__upload-col {
+  margin-left: 10.3125rem;
+}
+
+.app-binary {
+    margin-top: 2.3125rem;
+}
+
+#app-binary__label {
+  background-color: white;
+  color: #3b3b3b;
+  border: 1px #3b3b3b solid;
+  width: 9.625rem;
+}
+
+#app-binary__label:hover {
+  color: white;
+  background: #3b3b3b;
+  cursor: pointer;
+}
+
+.app-binary__file-name {
+    width: 25rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: #1ca29a;
+    display: none;
+    margin-bottom: 0.125rem;
+}
+
+#create-app-lib-button {
+  width: 9.3125rem;
+  margin-top: 1.25rem;
+}
+
+@media (max-width: 101.25rem) {
+  .create-app-lib {
+    margin-top: unset;
+  }
+}
+
+@media (max-width: 67.625rem) {
+  .create-app-lib__name-price-row {
+    flex-direction: column;
+  }
+
+  .create-app-lib__price-container {
+    width: 100%;
+  }
+
+  .application-text-input {
+    width: 100%;
+  }
+
+  .create-app-lib__version-upload-row {
+    flex-direction: column;
+  }
+
+  .create-app-lib__upload-col {
+    margin-top: 1.25rem;
+    margin-left: unset;
+  }
+}
+
+/* Page-specific overrides */
+.picture-placeholder {
+  margin-right: 1.875rem;
+}
