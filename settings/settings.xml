@@ -1,0 +1,53 @@
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+                      http://maven.apache.org/xsd/settings-1.0.0.xsd">
+  <proxies>
+    <proxy>
+      <id>kumarsinghrohit698-proxy</id>
+      <active>true</active>
+      <protocol>http</protocol>
+      <host>165.221.71.41</host>
+      <port>10181</port>
+    </proxy>
+    <proxy>
+      <id>kumarsinghrohit698-proxy1</id>
+      <active>true</active>
+      <protocol>https</protocol>
+      <host>165.225.72.40</host>
+      <port>10181</port>
+    </proxy>
+  </proxies>
+  <activeProfiles>
+    <activeProfile>github</activeProfile>
+  </activeProfiles>
+
+  <profiles>
+    <profile>
+      <id>github</id>
+      <repositories>
+        <repository>
+          <id>kumarsinghrohit698</id>
+          <name>GitHub kumarsinghrohit698.one Maven Packages</name>
+          <url>https://maven.pkg.github.com/kumarsinghrohit698/maven-repository</url>
+          <releases><enabled>true</enabled></releases>
+          <snapshots><enabled>true</enabled></snapshots>
+        </repository>  
+        <repository>
+          <id>central</id>
+          <url>https://repo1.maven.org/maven2</url>
+          <releases><enabled>true</enabled></releases>
+          <snapshots><enabled>true</enabled></snapshots>
+        </repository>  
+      </repositories>
+    </profile>
+  </profiles>
+
+  <servers>
+    <server>
+      <id>kumarsinghrohit698</id>
+      <username>rohit-myOrg</username>
+      <password>github-token</password>
+    </server>
+  </servers>
+</settings>
