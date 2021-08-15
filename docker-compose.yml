@@ -110,14 +110,52 @@ services:
       - 8180:8180
     command:
      - "-b 0.0.0.0 -Djboss.http.port=8180 -Dkeycloak.frontendUrl=http://auth.application.local/auth -Dkeycloak.forceBackendUrlToFrontendUrl=false"
+#    environment:
+#      DB_VENDOR: POSTGRES
+#      DB_ADDR: postgres.app.service
+#      DB_DATABASE: keycloak
+#      DB_USER: app
+#      DB_PASSWORD: app123
+#      DB_SCHEMA: public
+#    depends_on:
+#      - postgres.app.service
     depends_on:
       - ldap.application.service    
       
-  ldap.application.service:
+  postgres.app.service:
+    image: docker.pkg.github.com/myApp/app-postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: app123
+      DATA: nodata
+      
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: app@app.one
+      PGADMIN_DEFAULT_PASSWORD: app
+    ports:
+      - 5080:80
+    logging:
+      driver: none
+  
+  rabbitmq:
+    image: rabbitmq:management
+    environment:
+      RABBITMQ_DEFAULT_USER: test
+      RABBITMQ_DEFAULT_PASS: test
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+
+ldap.application.service:
     image: openfrontier/apacheds
     ports:
       - 10389:10389
-
+  
 networks:
   default:
     external:
